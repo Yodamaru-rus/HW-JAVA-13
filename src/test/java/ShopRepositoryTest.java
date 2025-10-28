@@ -43,10 +43,11 @@ public class ShopRepositoryTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void AddError() {
 
-        Assertions.assertThrows(AlreadyExistsException.class, ()->{
+        Assertions.assertThrows(AlreadyExistsException.class, () -> {
             manager.add(item2);
         });
     }
@@ -101,9 +102,9 @@ public class ShopRepositoryTest {
     @Test
     public void removeError() {
 
-        Assertions.assertThrows(NotFoundException.class, ()->{
+        Assertions.assertThrows(NotFoundException.class, () -> {
             managerThree.remove(47);
         });
     }
-    
+
 }
