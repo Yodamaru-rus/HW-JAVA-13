@@ -25,8 +25,6 @@ public class ShopRepositoryTest {
         manager.add(item5);
         manager.add(item6);
         manager.add(item7);
-        manager.add(item2);
-        manager.add(item8);
         managerThree.add(item3);
         managerThree.add(item4);
         managerThree.add(item5);
@@ -37,8 +35,25 @@ public class ShopRepositoryTest {
     }
 
     @Test
+    public void AddProductSuccessfully() {
+        Product[] expected = {item1, item2, item3, item4, item5, item6, item7, item8};
+
+        manager.add(item8);
+        Product[] actual = manager.findAll();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void AddError() {
+
+        Assertions.assertThrows(AlreadyExistsException.class, ()->{
+            manager.add(item2);
+        });
+    }
+
+    @Test
     public void findElement() {
-        Product[] expected = {item1, item2, item3, item4, item5, item6, item7, item2, item8};
+        Product[] expected = {item1, item2, item3, item4, item5, item6, item7};
 
         Product[] actual = manager.findAll();
 
@@ -70,17 +85,6 @@ public class ShopRepositoryTest {
         Product actual = managerThree.findById(50);
 
         Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void removeTwoElementsSuccessfully() {
-
-        Product[] expected = {item1, item3, item4, item5, item6, item7, item8, null};
-
-        manager.remove(2);
-        Product[] actual = manager.findAll();
-
-        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test

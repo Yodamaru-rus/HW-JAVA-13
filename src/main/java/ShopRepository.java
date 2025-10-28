@@ -17,18 +17,6 @@ public class ShopRepository {
         return tmp;
     }
 
-    /**
-     * Метод добавления товара в репозиторий
-     * @param product — добавляемый товар
-     */
-    public void add(Product product) {
-        products = addToArray(products, product);
-    }
-
-    public Product[] findAll() {
-        return products;
-    }
-
     public Product findById(int id) {
         for (Product product : products) {
             if (product.getId() == id) {
@@ -37,6 +25,23 @@ public class ShopRepository {
         }
         return null;
     }
+
+    /**
+     * Метод добавления товара в репозиторий
+     * @param product — добавляемый товар
+     */
+    public void add(Product product) {
+        if(findById(product.id) != null){
+            throw new AlreadyExistsException("Element with id: " + product.id + " Already added");
+        }
+        products = addToArray(products, product);
+    }
+
+    public Product[] findAll() {
+        return products;
+    }
+
+
 
     // Этот способ мы рассматривали в теории в теме про композицию
     public void remove(int id){
